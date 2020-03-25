@@ -1,0 +1,29 @@
+<fieldset class="fieldset admin__fieldset fieldset-wide" id="stores_store_hours_fieldset">
+    <legend class="admin__legend legend">
+        <span><?php echo __('Store Hours'); ?></span>
+    </legend>
+    <br>
+    <div class="messages">
+    </div>
+    <div class="admin__field field field-header" data-ui-id="adminhtml-stores-edit-tab-info-0-fieldset-element-form-field--header">
+        <label class="label admin__field-label" for="-header" data-ui-id="adminhtml-stores-edit-tab-info-0-fieldset-element-checkbox-stores--header-label"><span><?php echo __('Week Day'); ?></span></label>
+        <div class="admin__field-control control">
+           <span class="header-text"><?php echo __('Closed'); ?></span>
+        </div>
+    </div>
+
+    <?php $weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    foreach ($weekdays as $day): ?>
+        <div class="admin__field field field-<?php echo $day; ?>" data-ui-id="adminhtml-stores-edit-tab-info-0-fieldset-element-form-field-<?php echo $day; ?>">
+            <label class="label admin__field-label" for="<?php echo $day; ?>" data-ui-id="adminhtml-stores-edit-tab-info-0-fieldset-element-checkbox-stores-<?php echo $day; ?>-label"><span><?php echo __('%1', $day); ?></span></label>
+            <div class="admin__field-control control">
+                <input class="check-store-closed" id="stores_<?php echo $day; ?>" name="<?php echo 'stores[' . $day . ']'; ?>" data-ui-id="adminhtml-stores-edit-tab-info-0-fieldset-element-checkbox-stores-<?php echo $day; ?>" value="false" data-form-part="" onchange="this.value = this.checked;" type="checkbox">
+                <label class="label admin__field-label time-picker-label" for="<?php echo $day; ?>_from" data-ui-id="adminhtml-stores-edit-tab-info-0-fieldset-element-checkbox-stores-<?php echo $day; ?>-label"><span><?php echo __('From'); ?>:</span></label>
+                <input class="datepicker" id="<?php echo $day; ?>_from" title="datepicker" value="" type="text">
+                <label class="label admin__field-label time-picker-label" for="<?php echo $day; ?>_to" data-ui-id="adminhtml-stores-edit-tab-info-0-fieldset-element-checkbox-stores-<?php echo $day; ?>-label"><span><?php echo __('To'); ?>:</span></label>
+                <input class="datepicker" id="<?php echo $day; ?>_to" title="datepicker" value="" type="text">
+            </div>
+        </div>
+    <?php endforeach; ?>
+
+</fieldset>

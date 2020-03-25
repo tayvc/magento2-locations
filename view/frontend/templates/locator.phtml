@@ -1,0 +1,26 @@
+<?php
+$stores = $this->getStores();
+?>
+
+<?php if ($stores && count($stores) > 0):
+    $storeCount = count($stores);
+    $i = 1;
+    foreach ($stores as $store): ?>
+        <div class="results-wrap">
+        <div class="result-count"><?php echo $i; ?></div>
+        <div class="result-details">
+            <span><strong><?php echo $store->getName(); ?></strong></span>
+            <span><?php echo round($store->getDistance(), 2) . __(' miles'); ?></span>
+            <p><?php echo $store->getStreetAddress(); ?></p>
+            <p><?php echo $store->getCity() . ', ' .$store->getState() . ' ' .$store->getZipCode(); ?></p>
+            <p><?php echo $this->formatPhoneNumber($store->getPhoneNumber()); ?></p>
+        </div>
+        </div>
+        <?php $i++; ?>
+    <?php endforeach; ?>
+<?php else: ?>
+    <div class="no-results">
+        <span><?php echo __("We're sorry, we couldn't find results for your search."); ?></span>
+    </div>
+<?php endif; ?>
+

@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="store_locations_save_after">
+        <observer name="get_store_location_coordinates" instance="SFS\Locations\Observer\GetLocationCoordinates" />
+    </event>
+</config>

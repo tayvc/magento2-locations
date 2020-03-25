@@ -1,0 +1,103 @@
+<?php
+$locations = $this->getLocationCollection();
+$alphaArray = range('A', 'Z');
+$regions = $this->getRegionAlphaArray($locations);
+?>
+
+<?php if ($locations && $locations->getSize() > 0): ?>
+    <h1><?php echo __('Store locator'); ?></h1>
+    <div class="store-locator">
+        <form action="<?php echo $this->getUrl('stores/index/search'); ?>">
+            <div class="form-group">
+                <label for="address-input"><?php echo __('Enter ZIP Code or enter City, State.'); ?></label>
+                <div class="input-group">
+                    <input id="address-input" class="form-control" type="text">
+                    <button type="submit" id="search-submit" data-route="<?php echo $this->getUrl('stores/index/search'); ?>" class="btn btn-default">
+                        <span><?php echo __('Search'); ?></span>
+                    </button>
+                </div>
+            </div>
+        </form>
+        <div class="search-results" style="display: none;"></div>
+    </div>
+    <br />
+    <h3><?php echo __('Store directory'); ?></h3>
+    <div class="store-directory">
+        <?php foreach ($alphaArray as $alpha):
+            if (array_key_exists($alpha, $regions)): ?>
+                <a href="#letter-link-<?php echo $alpha; ?>"><?php echo $alpha; ?></a>
+            <?php else: ?>
+                <span style="color:#d3d3d3;"><?php echo $alpha; ?></span>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </div>
+    <br/>
+
+    <div class="state-store-list">
+        <?php foreach ($regions as $alpha => $states): ?>
+            <div class="list-section">
+                <div class="state-section-title" id="letter-link-<?php echo $alpha; ?>"><?php echo $alpha; ?></div>
+                <?php foreach ($states as $state => $locations): ?>
+                    <a class="state-section-title state-dropdown" href="#state-section-<?php echo $state; ?>"><?php echo $state . ' (' . count($locations) . ')'; ?></a>
+                    <div id="state-section-<?php echo $state; ?>" class="state-section-content">
+                        <?php foreach ($locations as $location): ?>
+                            <div id="store-<?php echo $location->getStoreId(); ?>" class="store-wrapper" style="border-top-color:<?php echo $location->getColor(); ?>;">
+                                <div class="store-top">
+                                    <img class="store-image" src="<?php echo $this->getStoreImageUrl($location); ?>" width="250" height="250">
+                                    <h2><?php echo $location->getName(); ?></h2>
+                                    <ul class="store-social-links">
+                                        <?php if ($location->getFacebookUrl()): ?>
+                                            <li><a class="fab fa-facebook" href="<?php echo $location->getFacebookUrl(); ?>" title="<?php echo __('Link to Facebook'); ?>"></a></li>
+                                        <?php endif; ?>
+                                        <?php if ($location->getInstagramUrl()): ?>
+                                            <li><a class="fab fa-instagram" href="<?php echo $location->getInstagramUrl(); ?>" title="<?php echo __('Link to Instagram'); ?>"></a></li>
+                                        <?php endif; ?>
+                                        <?php if ($location->getPinterestUrl()): ?>
+                                            <li><a class="fab fa-pinterest" href="<?php echo $location->getPinterestUrl(); ?>" title="<?php echo __('Link to Pinterest'); ?>"></a></li>
+                                        <?php endif; ?>
+                                        <?php if ($location->getTwitterUrl()): ?>
+                                            <li><a class="fab fa-twitter" href="<?php echo $location->getTwitterUrl(); ?>" title="<?php echo __('Link to Twitter'); ?>"></a></li>
+                                        <?php endif; ?>
+                                    </ul>
+                                </div>
+                                <div class="store-details-wrapper">
+                                    <ul class="store-details">
+                                        <li class="store-address">
+                                            <a target="_blank" href="http://maps.google.com/maps?q=<?php echo str_replace(' ', '+', $location->getStreetAddress()) . ',+' . str_replace(' ', '+', $location->getCity()) . ',+' . str_replace(' ', '+', $location->getState()) . ',+' . str_replace(' ', '+', $location->getZipCode()); ?>">
+                                                <?php echo $location->getStreetAddress(); ?>
+                                                <br/>
+                                                <?php echo $location->getCity() . ', ' . $location->getState() . ' ' . $location->getZipCode(); ?>
+                                            </a>
+                                        </li>
+                                        <?php $phoneNumber = $this->formatPhoneNumber($location->getPhoneNumber());
+                                        if ($phoneNumber): ?>
+                                            <li class="store-number"><a target="_blank" href="tel:<?php echo $phoneNumber; ?>"><?php echo $phoneNumber; ?></a></li>
+                                        <?php endif; ?>
+                                        <li class="store-email"><a target="_blank" href="mailto:<?php echo $location->getEmail(); ?>"><?php echo $location->getEmail(); ?></a></li>
+                                    </ul>
+                                    <ul class="store-hours">
+                                        <li>Store Hours: <strong><?php echo $this->getCurrentWeek(); ?></strong></li>
+                                        <?php $hours = $this->getStoreHoursAsArray($location);
+                                        foreach ($hours as $day => $hour):
+                                            if ($hour != null): ?>
+                                                <li class="store-open"><?php echo $day . ': <strong>' . $hour['Start'] . ' - ' . $hour['Stop'] . '</strong>'; ?></li>
+                                            <?php else: ?>
+                                                <li class="store-closed"><?php echo sprintf(__('%s: <strong>Closed</strong>'), $day); ?></li>
+                                            <?php endif; ?>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                </div>
+                                <?php if ($this->getGoogleMapsImage($location)): ?>
+                                    <img class="store-map" src="<?php echo $this->getGoogleMapsImage($location); ?>" />
+                                <?php endif ?>
+                            </div><!--end .store-wrapper-->
+                        <?php endforeach; ?>
+                    </div><!--end .state-section-content-->
+                <?php endforeach; ?>
+            </div><!--end .list-section-->
+        <?php endforeach; ?>
+    </div><!--end .state-store-list-->
+
+<?php else: ?>
+    <div><?php echo __('No locations found.'); ?></div>
+<?php endif; ?>

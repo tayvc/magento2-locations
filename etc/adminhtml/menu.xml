@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+<menu>
+    <add id="SFS_Locations::store_locations" title="Store Locations" translate="title" module="SFS_Locations" sortOrder="51" parent="Magento_Backend::stores_settings" action="locations/stores" resource="SFS_Locations::store_locations"/>
+</menu>
+</config>
+

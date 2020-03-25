@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="styles"/>
+    <body>
+        <referenceContainer name="content">
+            <paging name="listing_paging">
+                <settings>
+                    <options>
+                        <option name="32" xsi:type="array">
+                            <item name="value" xsi:type="number">32</item>
+                            <item name="label" xsi:type="string">32</item>
+                        </option>
+                        <option name="48" xsi:type="array">
+                            <item name="value" xsi:type="number">48</item>
+                            <item name="label" xsi:type="string">48</item>
+                        </option>
+                        <option name="64" xsi:type="array">
+                            <item name="value" xsi:type="number">64</item>
+                            <item name="label" xsi:type="string">64</item>
+                        </option>
+                    </options>
+                    <pageSize>32</pageSize>
+                </settings>
+            </paging>
+            <block class="SFS\Locations\Block\Adminhtml\Stores" name="sfs_locations_grid">
+                <block class="Magento\Backend\Block\Widget\Grid" name="sfs_locations_grid.grid" as="grid">
+                    <arguments>
+                        <argument name="id" xsi:type="string">locations_id</argument>
+                        <argument name="dataSource" xsi:type="object">SFS\Locations\Model\ResourceModel\Store\Collection</argument>
+                        <argument name="default_sort" xsi:type="string">id</argument>
+                        <argument name="default_dir" xsi:type="string">ASC</argument>
+                        <argument name="save_parameters_in_session" xsi:type="string">1</argument>
+                    </arguments>
+                    <block class="Magento\Backend\Block\Widget\Grid\Massaction" name="sfs_locations_grid.grid.massaction" as="grid.massaction">
+                        <arguments>
+                            <argument name="massaction_id_field" xsi:type="string">store_id</argument>
+                            <argument name="form_field_name" xsi:type="string">stores</argument>
+                            <argument name="options" xsi:type="array">
+                                <item name="delete" xsi:type="array">
+                                    <item name="label" xsi:type="string" translate="true">
+                                        Delete
+                                    </item>
+                                    <item name="url" xsi:type="string">*/*/massDelete</item>
+                                    <item name="confirm" xsi:type="string" translate="true">
+                                        Are you sure you want to delete?
+                                    </item>
+                                </item>
+                            </argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Backend\Block\Widget\Grid\ColumnSet" name="sfs_locations_grid.grid.columnSet" as="grid.columnSet">
+                        <arguments>
+                            <argument name="rowUrl" xsi:type="array">
+                                <item name="path" xsi:type="string">*/*/edit</item>
+                                <item name="extraParamsTemplate" xsi:type="array">
+                                    <item name="id" xsi:type="string">getId</item>
+                                </item>
+                            </argument>
+                        </arguments>
+                        <block class="Magento\Backend\Block\Widget\Grid\Column" as="store_id">
+                            <arguments>
+                                <argument name="header" xsi:type="string" translate="true">Store Id</argument>
+                                <argument name="index" xsi:type="string">store_id</argument>
+                                <argument name="type" xsi:type="string">text</argument>
+                                <argument name="column_css_class" xsi:type="string">col-id</argument>
+                                <argument name="header_css_class" xsi:type="string">col-id</argument>
+                            </arguments>
+                        </block>
+                        <block class="Magento\Backend\Block\Widget\Grid\Column" as="name">
+                            <arguments>
+                                <argument name="header" xsi:type="string" translate="true">Store Name</argument>
+                                <argument name="index" xsi:type="string">name</argument>
+                                <argument name="type" xsi:type="string">text</argument>
+                                <argument name="column_css_class" xsi:type="string">col-id</argument>
+                                <argument name="header_css_class" xsi:type="string">col-id</argument>
+                            </arguments>
+                        </block>
+                        <block class="Magento\Backend\Block\Widget\Grid\Column" as="street_address">
+                            <arguments>
+                                <argument name="header" xsi:type="string" translate="true">Street Address</argument>
+                                <argument name="index" xsi:type="string">street_address</argument>
+                                <argument name="type" xsi:type="string">text</argument>
+                                <argument name="column_css_class" xsi:type="string">col-id</argument>
+                                <argument name="header_css_class" xsi:type="string">col-id</argument>
+                            </arguments>
+                        </block>
+                        <block class="Magento\Backend\Block\Widget\Grid\Column" as="city">
+                            <arguments>
+                                <argument name="header" xsi:type="string" translate="true">City</argument>
+                                <argument name="index" xsi:type="string">city</argument>
+                                <argument name="type" xsi:type="string">text</argument>
+                                <argument name="column_css_class" xsi:type="string">col-id</argument>
+                                <argument name="header_css_class" xsi:type="string">col-id</argument>
+                            </arguments>
+                        </block>
+                        <block class="Magento\Backend\Block\Widget\Grid\Column" as="state">
+                            <arguments>
+                                <argument name="header" xsi:type="string" translate="true">State</argument>
+                                <argument name="index" xsi:type="string">state</argument>
+                                <argument name="type" xsi:type="string">text</argument>
+                                <argument name="column_css_class" xsi:type="string">col-id</argument>
+                                <argument name="header_css_class" xsi:type="string">col-id</argument>
+                            </arguments>
+                        </block>
+                        <block class="Magento\Backend\Block\Widget\Grid\Column" as="zip_code">
+                            <arguments>
+                                <argument name="header" xsi:type="string" translate="true">Zip Code</argument>
+                                <argument name="index" xsi:type="string">zip_code</argument>
+                                <argument name="type" xsi:type="string">text</argument>
+                                <argument name="column_css_class" xsi:type="string">col-id</argument>
+                                <argument name="header_css_class" xsi:type="string">col-id</argument>
+                            </arguments>
+                        </block>
+                        <block class="Magento\Backend\Block\Widget\Grid\Column" as="phone_number">
+                            <arguments>
+                                <argument name="header" xsi:type="string" translate="true">Phone</argument>
+                                <argument name="index" xsi:type="string">phone_number</argument>
+                                <argument name="type" xsi:type="string">text</argument>
+                                <argument name="column_css_class" xsi:type="string">col-id</argument>
+                                <argument name="header_css_class" xsi:type="string">col-id</argument>
+                            </arguments>
+                        </block>
+                        <block class="Magento\Backend\Block\Widget\Grid\Column" as="is_active">
+                            <arguments>
+                                <argument name="header" xsi:type="string" translate="true">Status</argument>
+                                <argument name="index" xsi:type="string">is_active</argument>
+                                <argument name="type" xsi:type="string">options</argument>
+                                <argument name="options" xsi:type="options" model="SFS\Locations\Model\Source\Status"/>
+                                <argument name="column_css_class" xsi:type="string">col-id</argument>
+                                <argument name="header_css_class" xsi:type="string">col-id</argument>
+                            </arguments>
+                        </block>
+                        <block class="Magento\Backend\Block\Widget\Grid\Column" as="updated_at">
+                            <arguments>
+                                <argument name="header" xsi:type="string" translate="true">Modified</argument>
+                                <argument name="index" xsi:type="string">updated_at</argument>
+                                <argument name="type" xsi:type="string">date</argument>
+                                <argument name="column_css_class" xsi:type="string">col-id</argument>
+                                <argument name="header_css_class" xsi:type="string">col-id</argument>
+                            </arguments>
+                        </block>
+                    </block>
+                </block>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

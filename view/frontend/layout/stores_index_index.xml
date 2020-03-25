@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="SFS_Locations::_locations.css"/>
+        <script src="SFS_Locations/js/locations.js"/>
+        <script src="https://kit.fontawesome.com/95e2656e71.js" src_type="url" />
+    </head>
+    <referenceContainer name="content">
+        <block class="SFS\Locations\Block\Index" name="stores_index_index" template="SFS_Locations::index.phtml" />
+    </referenceContainer>
+    <referenceContainer name="page.wrapper">
+        <container name="countdown_banner" as="countdown_banner" label="Countdown Banner" htmlTag="div" htmlClass="countdown_banner" before="main.content">
+            <block class="SFS\CountdownBanners\Block\Banner" name="countdown_banners_banner" template="SFS_CountdownBanners::banner.phtml">
+                <arguments>
+                    <argument name="banner_id" xsi:type="string">2</argument>
+                </arguments>
+            </block>
+        </container>
+    </referenceContainer>
+</page>
